@@ -1,25 +1,26 @@
 function wordseqImagery(subjID, setArg, runNum)
 % wordseqImagery(subjID, setArg, runNum)
 %
-% Variant of wordseqcovert.m where on 50% of TRIALS (deterministically assigned
-% based on set and run number) the covert/go cue is an image instead of "X":
-%   - speaking  -> images/imagined_articulation.png
-%   - hearing   -> images/imagined_hearing.png
+% Block-level variant of wordseqcovert.m:
+% - Each block has 3 trials (LISTEN 3s -> IMAGERY 3s), total 18 s of task per block.
+% - For 50% of BLOCKS (deterministically assigned from set/run), the imagery cue is:
+%       speaking -> images/imagined_articulation.png
+%   otherwise:
+%       hearing  -> images/imagined_hearing.png
+% - Within a block, ALL 3 trials share the same type (speaking or hearing).
 %
-% The trial types in the CLEAN events.tsv are now:
-%   - "speaking"
-%   - "hearing"
-%
-% Full events.tsv includes pre_fix, listen, covert, rest with real flip times.
-% Clean events.tsv includes only trial-level listen segments (no rest/fix), with:
-%   onset    = actual LISTEN flip time (s from run_onset)
-%   duration = actual time from LISTEN flip -> COVERT flip
-%   trial_type = speaking/hearing
+% Logging:
+% - FULL events TSV includes: pre_fix, listen, imagery, rest (real flip times)
+%   - each trial logs a listen onset and imagery onset
+% - CLEAN events TSV is BLOCK-level only (no rest/fixations):
+%   onset = listen onset of trial 1 in the block (real flip time; s from run_onset)
+%   duration = imagery onset of trial 3 - listen onset of trial 1  (≈ 18 s, excludes rest)
+%   trial_type = speaking/hearing  (one label per 18 s block)
 %
 % Timing:
-%   Trial: LISTEN 3s -> COVERT 3s
-%   Block: 3 trials (18s) + REST 10s = 28s
-%   Run: 14 blocks + 10s pre-fix
+%   Trial: LISTEN 3 s -> IMAGERY 3 s
+%   Block: 3 trials (18 s) + REST 10 s = 28 s
+%   Run: 14 blocks + 10 s pre-fix
 
     % ---------- Coerce setArg -> 'set%d' ----------
     if isnumeric(setArg)
@@ -52,8 +53,6 @@ function wordseqImagery(subjID, setArg, runNum)
     rootDir  = fileparts(mfilename('fullpath'));
     cuesDir  = fullfile(rootDir,'cues');
     audioDir = fullfile(rootDir,'stimuli');
-    outDir   = fullfile(rootDir,'output');
-    if ~exist(outDir,'dir'), mkdir(outDir); end
     dataDir  = fullfile(rootDir,'data');
     fullDir  = fullfile(dataDir,'full_events');
     cleanDir = fullfile(dataDir,'clean_tsvs');
@@ -68,12 +67,13 @@ function wordseqImagery(subjID, setArg, runNum)
 
     % ---------- Timing constants ----------
     LISTEN_DUR  = 3;   % s
-    COVERT_DUR  = 3;   % s
+    IMAGERY_DUR = 3;   % s
     REST_DUR    = 10;  % s
     PRE_FIX     = 10;  % s
     N_BLOCKS    = 14;
     TRIALS_PER_BLOCK = 3;
-    BLOCK_DUR   = TRIALS_PER_BLOCK*(LISTEN_DUR + COVERT_DUR) + REST_DUR;
+    BLOCK_TASK_DUR = TRIALS_PER_BLOCK*(LISTEN_DUR + IMAGERY_DUR);  % 18 s
+    BLOCK_DUR   = BLOCK_TASK_DUR + REST_DUR;                       % 28 s
 
     % ---------- Parse cue file ----------
     blocks = parse_cue_file(cueFile);
@@ -99,21 +99,16 @@ function wordseqImagery(subjID, setArg, runNum)
     bank = create_token_buffers(audioDir, tokens, sampleRate);
     [trialBuffers, trialStrings] = build_trial_buffers(blocks, bank, numChannels, sampleRate);
 
-    % ---------- Deterministic 50% trial assignment (speaking/hearing) ----------
-    % Total trials in run:
-    N_TRIALS_TOTAL = N_BLOCKS * TRIALS_PER_BLOCK;
-
-    % Extract numeric portion of setName for seeding
+    % ---------- Deterministic 50% BLOCK assignment (speaking/hearing) ----------
     setNum = str2double(regexprep(lower(setName), 'set', ''));
     if isnan(setNum), setNum = 1; end
-
     seed = setNum*1000 + runNum;
     rng(double(seed), 'twister');
 
-    isSpeaking = false(N_TRIALS_TOTAL, 1);
-    isSpeaking(randperm(N_TRIALS_TOTAL, floor(N_TRIALS_TOTAL/2))) = true; % exactly half
-    trialType = repmat("hearing", N_TRIALS_TOTAL, 1);
-    trialType(isSpeaking) = "speaking";
+    isSpeakingBlock = false(N_BLOCKS, 1);
+    isSpeakingBlock(randperm(N_BLOCKS, floor(N_BLOCKS/2))) = true; % exactly half (7/14)
+    blockType = repmat("hearing", N_BLOCKS, 1);
+    blockType(isSpeakingBlock) = "speaking";
 
     % ---------- Display ----------
     HideCursor;
@@ -123,7 +118,7 @@ function wordseqImagery(subjID, setArg, runNum)
     ifi   = Screen('GetFlipInterval', win);
     slack = 0.5 * ifi;
 
-    % Load textures for covert cue images (stored in ./images next to script)
+    % Load textures for imagery cue images (stored in ./images next to script)
     imgDir = fullfile(rootDir, 'images');
     imgSpeakPath = fullfile(imgDir, 'imagined_articulation.png');
     imgHearPath  = fullfile(imgDir, 'imagined_hearing.png');
@@ -148,17 +143,17 @@ function wordseqImagery(subjID, setArg, runNum)
         WaitSecs('YieldSecs', 0.0001);
     end
 
-    t0 = GetSecs;  % run_onset reference
+    t0 = GetSecs;   % run_onset reference
     run_onset = t0;
 
-    % Full events (trial-level)
+    % ---------- FULL events (trial-level + rest/fix) ----------
     events = struct('set',{}, 'run',{}, 'event',{}, 'block',{}, ...
                     'trial',{}, 'condition',{}, 'sequence',{}, 'onset_s',{});
 
-    % Clean events (trial-level; no rest/fix)
-    clean_onsets    = zeros(N_TRIALS_TOTAL,1);
-    clean_durations = zeros(N_TRIALS_TOTAL,1);
-    clean_types     = strings(N_TRIALS_TOTAL,1);
+    % ---------- CLEAN events (block-level; no rest/fix) ----------
+    clean_onsets    = zeros(N_BLOCKS,1);
+    clean_durations = zeros(N_BLOCKS,1);
+    clean_types     = strings(N_BLOCKS,1);
 
     % ---------- Pre-run fixation (10 s) ----------
     preFixStart = t0;
@@ -170,14 +165,28 @@ function wordseqImagery(subjID, setArg, runNum)
 
     % ---------- Run (absolute schedule; no drift) ----------
     trialIdx = 0;
+
     for b = 1:N_BLOCKS
         blockStart = runStart + (b-1)*BLOCK_DUR;
+        thisType = blockType(b); % speaking/hearing for the whole block
+
+        % Choose the imagery cue texture for this block
+        if thisType == "speaking"
+            imageryTex = texSpeak;
+            imageryItem = "imagined_articulation.png";
+        else
+            imageryTex = texHear;
+            imageryItem = "imagined_hearing.png";
+        end
+
+        block_listen_onset_vbl = NaN;   % listen onset of trial 1
+        block_end_vbl = NaN;            % end of the 18 s task period (imagery onset of trial 3)
 
         for t = 1:TRIALS_PER_BLOCK
             trialIdx = trialIdx + 1;
 
-            listenStart = blockStart + (t-1)*(LISTEN_DUR + COVERT_DUR);
-            covertStart = listenStart + LISTEN_DUR;
+            listenStart  = blockStart + (t-1)*(LISTEN_DUR + IMAGERY_DUR);
+            imageryStart = listenStart + LISTEN_DUR;
 
             % --- LISTEN ---
             PsychPortAudio('FillBuffer', pahandle, trialBuffers{trialIdx});
@@ -186,47 +195,59 @@ function wordseqImagery(subjID, setArg, runNum)
             [~, vbl_listen] = Screen('Flip', win, listenStart - slack);
             PsychPortAudio('Start', pahandle, 1, listenStart, 0);
 
-            % Full event: listen onset at real flip time (vbl_listen)
             events(end+1) = make_event(setName, runNum, 'listen', b, t, ...
-                                       char(trialType(trialIdx)), trialStrings{trialIdx}, ...
+                                       char(thisType), trialStrings{trialIdx}, ...
                                        vbl_listen - run_onset); %#ok<AGROW>
 
-            % --- COVERT (GO CUE) ---
-            % Show image instead of "X" based on deterministic trial type
-            if trialType(trialIdx) == "speaking"
-                Screen('DrawTexture', win, texSpeak);
-                cue_item = "imagined_articulation.png";
-            else
-                Screen('DrawTexture', win, texHear);
-                cue_item = "imagined_hearing.png";
+            if t == 1
+                block_listen_onset_vbl = vbl_listen;
             end
+
+            % --- IMAGERY cue (image) ---
+            Screen('DrawTexture', win, imageryTex);
             Screen('DrawingFinished', win);
-            [~, vbl_covert] = Screen('Flip', win, covertStart - slack);
+            [~, vbl_img] = Screen('Flip', win, imageryStart - slack);
 
-            % Full event: covert onset at real flip time
-            % Store cue image name in "sequence" for the covert event (useful for debugging)
-            events(end+1) = make_event(setName, runNum, 'covert', b, t, ...
-                                       char(trialType(trialIdx)), char(cue_item), ...
-                                       vbl_covert - run_onset); %#ok<AGROW>
+            events(end+1) = make_event(setName, runNum, 'imagery', b, t, ...
+                                       char(thisType), char(imageryItem), ...
+                                       vbl_img - run_onset); %#ok<AGROW>
 
-            % Clean: trial-level listen segment, excludes rest/fix
-            clean_onsets(trialIdx)    = vbl_listen - run_onset;
-            clean_durations(trialIdx) = vbl_covert - vbl_listen;
-            clean_types(trialIdx)     = trialType(trialIdx);
+            if t == TRIALS_PER_BLOCK
+                % Block task ends at end of trial 3 imagery period.
+                % For clean duration we want exactly the 18s task window:
+                % from listen onset (trial 1) to imagery onset (trial 3) + 3s imagery.
+                % We can define end as imageryStart + IMAGERY_DUR, but we want "real times".
+                % So we store vbl_img now, and later add IMAGERY_DUR in absolute time.
+                block_end_vbl = vbl_img + IMAGERY_DUR;
+            end
 
-            % Hold until end of covert period
-            WaitSecs('UntilTime', covertStart + COVERT_DUR);
+            % Hold until end of imagery period
+            WaitSecs('UntilTime', imageryStart + IMAGERY_DUR);
 
             % Abort between trials
             [down, ~, kc] = KbCheck(-3);
             if down && kc(KbName('ESCAPE')), cleanup(win,pahandle,texSpeak,texHear); return; end
         end
 
+        % ---- Clean block-level event ----
+        % onset = first listen flip time
+        % duration = (end of trial3 imagery period) - (trial1 listen flip time)
+        if ~isnan(block_listen_onset_vbl) && ~isnan(block_end_vbl)
+            clean_onsets(b)    = block_listen_onset_vbl - run_onset;
+            clean_durations(b) = block_end_vbl - block_listen_onset_vbl;  % should be ~18 s
+            clean_types(b)     = thisType;
+        else
+            clean_onsets(b)    = NaN;
+            clean_durations(b) = NaN;
+            clean_types(b)     = thisType;
+        end
+
         % --- REST (10 s) ---
-        restStart = blockStart + TRIALS_PER_BLOCK*(LISTEN_DUR + COVERT_DUR);
+        restStart = blockStart + BLOCK_TASK_DUR;
         DrawFormattedText(win, '+', 'center','center', 0);
         [~, vbl_rest] = Screen('Flip', win, restStart - slack);
-        events(end+1) = make_event(setName, runNum, 'rest', b, NaN, 'REST', '', vbl_rest - run_onset); %#ok<AGROW>
+        events(end+1) = make_event(setName, runNum, 'rest', b, NaN, ...
+                                   'REST', '', vbl_rest - run_onset); %#ok<AGROW>
 
         WaitSecs('UntilTime', blockStart + BLOCK_DUR);
     end
@@ -234,14 +255,13 @@ function wordseqImagery(subjID, setArg, runNum)
     % ---------- Save & close ----------
     cleanup(win, pahandle, texSpeak, texHear);
 
-    Tfull = struct2table(events);
-
     % Full events TSV
+    Tfull = struct2table(events);
     full_outfile = fullfile(fullDir, sprintf('%s_%s_run%d_full.tsv', subjID, setName, runNum));
     writetable(Tfull, full_outfile, 'FileType','text','Delimiter','\t');
     fprintf('Wrote %s\n', full_outfile);
 
-    % Clean TSV (trial-level)
+    % Clean TSV (block-level)
     Tclean = table(clean_onsets, clean_durations, string(clean_types), ...
                    'VariableNames', {'onset','duration','trial_type'});
     clean_outfile = fullfile(cleanDir, sprintf('%s_%s_run%d_events.tsv', subjID, setName, runNum));
