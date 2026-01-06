@@ -1,0 +1,71 @@
+RUN 1
+BLOCK:
+statue statue installed
+carbon carbon carbon
+carbon carbon carbon
+
+BLOCK:
+installed carbon installed
+statue statue statue
+statue carbon carbon
+
+BLOCK:
+carbon installed carbon
+installed installed installed
+statue statue installed
+
+BLOCK:
+statue carbon carbon
+installed carbon carbon
+installed installed carbon
+
+BLOCK:
+carbon statue carbon
+statue statue installed
+statue carbon installed
+
+BLOCK:
+carbon installed carbon
+installed installed carbon
+statue statue carbon
+
+BLOCK:
+statue statue installed
+carbon installed carbon
+installed carbon installed
+
+BLOCK:
+installed carbon statue
+installed installed statue
+installed carbon installed
+
+BLOCK:
+installed statue installed
+installed carbon installed
+carbon statue statue
+
+BLOCK:
+carbon installed installed
+installed statue carbon
+statue statue statue
+
+BLOCK:
+installed carbon statue
+carbon statue statue
+installed carbon installed
+
+BLOCK:
+installed carbon installed
+installed installed statue
+installed carbon installed
+
+BLOCK:
+carbon carbon installed
+statue carbon installed
+carbon installed installed
+
+BLOCK:
+carbon statue carbon
+statue carbon carbon
+installed installed installed
+

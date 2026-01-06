@@ -1,0 +1,100 @@
+set	run	event	block	trial	condition	sequence	onset_s
+set2	1	pre_fix	0	NaN	BLOCK		0
+set2	1	listen	1	1	BLOCK	carbon statue carbon	10
+set2	1	covert	1	1	BLOCK	carbon statue carbon	13
+set2	1	listen	1	2	BLOCK	carbon installed carbon	16
+set2	1	covert	1	2	BLOCK	carbon installed carbon	19
+set2	1	listen	1	3	BLOCK	carbon installed statue	22
+set2	1	covert	1	3	BLOCK	carbon installed statue	25
+set2	1	rest	1	NaN	BLOCK		28
+set2	1	listen	2	1	BLOCK	installed installed installed	38
+set2	1	covert	2	1	BLOCK	installed installed installed	41
+set2	1	listen	2	2	BLOCK	statue statue carbon	44
+set2	1	covert	2	2	BLOCK	statue statue carbon	47
+set2	1	listen	2	3	BLOCK	installed statue installed	50
+set2	1	covert	2	3	BLOCK	installed statue installed	53
+set2	1	rest	2	NaN	BLOCK		56
+set2	1	listen	3	1	BLOCK	statue carbon carbon	66
+set2	1	covert	3	1	BLOCK	statue carbon carbon	69
+set2	1	listen	3	2	BLOCK	installed installed installed	72
+set2	1	covert	3	2	BLOCK	installed installed installed	75
+set2	1	listen	3	3	BLOCK	installed carbon installed	78
+set2	1	covert	3	3	BLOCK	installed carbon installed	81
+set2	1	rest	3	NaN	BLOCK		84
+set2	1	listen	4	1	BLOCK	statue statue installed	94
+set2	1	covert	4	1	BLOCK	statue statue installed	97
+set2	1	listen	4	2	BLOCK	carbon carbon installed	100
+set2	1	covert	4	2	BLOCK	carbon carbon installed	103
+set2	1	listen	4	3	BLOCK	carbon carbon installed	106
+set2	1	covert	4	3	BLOCK	carbon carbon installed	109
+set2	1	rest	4	NaN	BLOCK		112
+set2	1	listen	5	1	BLOCK	installed carbon statue	122
+set2	1	covert	5	1	BLOCK	installed carbon statue	125
+set2	1	listen	5	2	BLOCK	statue installed statue	128
+set2	1	covert	5	2	BLOCK	statue installed statue	131
+set2	1	listen	5	3	BLOCK	carbon statue installed	134
+set2	1	covert	5	3	BLOCK	carbon statue installed	137
+set2	1	rest	5	NaN	BLOCK		140
+set2	1	listen	6	1	BLOCK	installed carbon carbon	150
+set2	1	covert	6	1	BLOCK	installed carbon carbon	153
+set2	1	listen	6	2	BLOCK	statue installed statue	156
+set2	1	covert	6	2	BLOCK	statue installed statue	159
+set2	1	listen	6	3	BLOCK	statue carbon statue	162
+set2	1	covert	6	3	BLOCK	statue carbon statue	165
+set2	1	rest	6	NaN	BLOCK		168
+set2	1	listen	7	1	BLOCK	installed installed installed	178
+set2	1	covert	7	1	BLOCK	installed installed installed	181
+set2	1	listen	7	2	BLOCK	statue carbon carbon	184
+set2	1	covert	7	2	BLOCK	statue carbon carbon	187
+set2	1	listen	7	3	BLOCK	installed carbon installed	190
+set2	1	covert	7	3	BLOCK	installed carbon installed	193
+set2	1	rest	7	NaN	BLOCK		196
+set2	1	listen	8	1	BLOCK	carbon carbon installed	206
+set2	1	covert	8	1	BLOCK	carbon carbon installed	209
+set2	1	listen	8	2	BLOCK	statue statue statue	212
+set2	1	covert	8	2	BLOCK	statue statue statue	215
+set2	1	listen	8	3	BLOCK	carbon installed installed	218
+set2	1	covert	8	3	BLOCK	carbon installed installed	221
+set2	1	rest	8	NaN	BLOCK		224
+set2	1	listen	9	1	BLOCK	statue carbon carbon	234
+set2	1	covert	9	1	BLOCK	statue carbon carbon	237
+set2	1	listen	9	2	BLOCK	carbon carbon carbon	240
+set2	1	covert	9	2	BLOCK	carbon carbon carbon	243
+set2	1	listen	9	3	BLOCK	statue carbon statue	246
+set2	1	covert	9	3	BLOCK	statue carbon statue	249
+set2	1	rest	9	NaN	BLOCK		252
+set2	1	listen	10	1	BLOCK	installed statue statue	262
+set2	1	covert	10	1	BLOCK	installed statue statue	265
+set2	1	listen	10	2	BLOCK	carbon statue carbon	268
+set2	1	covert	10	2	BLOCK	carbon statue carbon	271
+set2	1	listen	10	3	BLOCK	carbon installed installed	274
+set2	1	covert	10	3	BLOCK	carbon installed installed	277
+set2	1	rest	10	NaN	BLOCK		280
+set2	1	listen	11	1	BLOCK	statue installed statue	290
+set2	1	covert	11	1	BLOCK	statue installed statue	293
+set2	1	listen	11	2	BLOCK	carbon carbon installed	296
+set2	1	covert	11	2	BLOCK	carbon carbon installed	299
+set2	1	listen	11	3	BLOCK	carbon installed statue	302
+set2	1	covert	11	3	BLOCK	carbon installed statue	305
+set2	1	rest	11	NaN	BLOCK		308
+set2	1	listen	12	1	BLOCK	installed carbon carbon	318
+set2	1	covert	12	1	BLOCK	installed carbon carbon	321
+set2	1	listen	12	2	BLOCK	installed carbon statue	324
+set2	1	covert	12	2	BLOCK	installed carbon statue	327
+set2	1	listen	12	3	BLOCK	statue installed statue	330
+set2	1	covert	12	3	BLOCK	statue installed statue	333
+set2	1	rest	12	NaN	BLOCK		336
+set2	1	listen	13	1	BLOCK	statue carbon installed	346
+set2	1	covert	13	1	BLOCK	statue carbon installed	349
+set2	1	listen	13	2	BLOCK	installed statue carbon	352
+set2	1	covert	13	2	BLOCK	installed statue carbon	355
+set2	1	listen	13	3	BLOCK	carbon installed statue	358
+set2	1	covert	13	3	BLOCK	carbon installed statue	361
+set2	1	rest	13	NaN	BLOCK		364
+set2	1	listen	14	1	BLOCK	installed carbon carbon	374
+set2	1	covert	14	1	BLOCK	installed carbon carbon	377
+set2	1	listen	14	2	BLOCK	statue carbon carbon	380
+set2	1	covert	14	2	BLOCK	statue carbon carbon	383
+set2	1	listen	14	3	BLOCK	statue carbon statue	386
+set2	1	covert	14	3	BLOCK	statue carbon statue	389
+set2	1	rest	14	NaN	BLOCK		392
