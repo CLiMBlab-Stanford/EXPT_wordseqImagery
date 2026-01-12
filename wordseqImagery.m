@@ -133,15 +133,23 @@ function wordseqImagery(subjID, setArg, runNum)
     % ---------- Wait for scanner trigger ----------
     DrawFormattedText(win, 'Waiting for scanner...', 'center','center', 0);
     Screen('Flip', win);
-    trigKeys = [KbName('5'), KbName('5%')];
+    trigKeys = [KbName('5'), KbName('5%'), KbName('t'), KbName('T')];  % scanner trigger keys
+    KbReleaseWait(-3);  % flush any held keys before waiting
+
     while true
         [down, ~, kc] = KbCheck(-3);
         if down
-            if ismember(find(kc,1), trigKeys), break; end
-            if kc(KbName('ESCAPE')), cleanup(win,pahandle,texSpeak,texHear); return; end
+            if any(kc(trigKeys))
+                break;
+            end
+            if kc(KbName('ESCAPE'))
+                cleanup(win,pahandle,texSpeak,texHear);
+                return;
+            end
         end
         WaitSecs('YieldSecs', 0.0001);
     end
+
 
     t0 = GetSecs;   % run_onset reference
     run_onset = t0;
