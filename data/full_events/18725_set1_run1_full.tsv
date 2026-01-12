@@ -1,0 +1,100 @@
+set	run	event	block	trial	condition	sequence	onset_s
+set1	1	pre_fix	0	NaN	FIX		0.00807595252990723
+set1	1	listen	1	1	speaking	installed installed statue	10.008022069931
+set1	1	imagery	1	1	speaking	imagined_articulation.png	13.0080056190491
+set1	1	listen	1	2	speaking	installed carbon statue	16.0079896450043
+set1	1	imagery	1	2	speaking	imagined_articulation.png	19.0079748630524
+set1	1	listen	1	3	speaking	statue carbon installed	22.007958650589
+set1	1	imagery	1	3	speaking	imagined_articulation.png	25.0079436302185
+set1	1	rest	1	NaN	REST		28.0079278945923
+set1	1	listen	2	1	speaking	installed statue installed	38.0078778266907
+set1	1	imagery	2	1	speaking	imagined_articulation.png	41.0078630447388
+set1	1	listen	2	2	speaking	installed carbon installed	44.0078480243683
+set1	1	imagery	2	2	speaking	imagined_articulation.png	47.0078330039978
+set1	1	listen	2	3	speaking	statue carbon installed	50.0078177452087
+set1	1	imagery	2	3	speaking	imagined_articulation.png	53.0078036785126
+set1	1	rest	2	NaN	REST		56.0077888965607
+set1	1	listen	3	1	speaking	installed installed carbon	66.007762670517
+set1	1	imagery	3	1	speaking	imagined_articulation.png	69.0077266693115
+set1	1	listen	3	2	speaking	statue installed installed	72.0077130794525
+set1	1	imagery	3	2	speaking	imagined_articulation.png	75.0076999664307
+set1	1	listen	3	3	speaking	installed installed installed	78.0076856613159
+set1	1	imagery	3	3	speaking	imagined_articulation.png	81.0076718330383
+set1	1	rest	3	NaN	REST		84.0076580047607
+set1	1	listen	4	1	speaking	carbon carbon statue	94.0076138973236
+set1	1	imagery	4	1	speaking	imagined_articulation.png	97.0075998306274
+set1	1	listen	4	2	speaking	installed statue statue	100.007586956024
+set1	1	imagery	4	2	speaking	imagined_articulation.png	103.007574796677
+set1	1	listen	4	3	speaking	statue statue installed	106.00756072998
+set1	1	imagery	4	3	speaking	imagined_articulation.png	109.007547855377
+set1	1	rest	4	NaN	REST		112.007534980774
+set1	1	listen	5	1	hearing	installed statue installed	122.007493019104
+set1	1	imagery	5	1	hearing	imagined_hearing.png	125.007480859756
+set1	1	listen	5	2	hearing	statue carbon carbon	128.007467985153
+set1	1	imagery	5	2	hearing	imagined_hearing.png	131.007456064224
+set1	1	listen	5	3	hearing	installed installed statue	134.007443666458
+set1	1	imagery	5	3	hearing	imagined_hearing.png	137.007431745529
+set1	1	rest	5	NaN	REST		140.0074198246
+set1	1	listen	6	1	hearing	carbon carbon carbon	150.007380008698
+set1	1	imagery	6	1	hearing	imagined_hearing.png	153.007368803024
+set1	1	listen	6	2	hearing	installed installed statue	156.007356882095
+set1	1	imagery	6	2	hearing	imagined_hearing.png	159.007344722748
+set1	1	listen	6	3	hearing	installed carbon statue	162.007333993912
+set1	1	imagery	6	3	hearing	imagined_hearing.png	165.007323026657
+set1	1	rest	6	NaN	REST		168.00731086731
+set1	1	listen	7	1	speaking	statue carbon installed	178.007273674011
+set1	1	imagery	7	1	speaking	imagined_articulation.png	181.007262706757
+set1	1	listen	7	2	speaking	carbon carbon statue	184.007251977921
+set1	1	imagery	7	2	speaking	imagined_articulation.png	187.007240772247
+set1	1	listen	7	3	speaking	installed statue carbon	190.007230758667
+set1	1	imagery	7	3	speaking	imagined_articulation.png	193.007219791412
+set1	1	rest	7	NaN	REST		196.007209062576
+set1	1	listen	8	1	hearing	installed installed installed	206.007173776627
+set1	1	imagery	8	1	hearing	imagined_hearing.png	209.007163763046
+set1	1	listen	8	2	hearing	carbon statue statue	212.007153987885
+set1	1	imagery	8	2	hearing	imagined_hearing.png	215.007143974304
+set1	1	listen	8	3	hearing	statue installed statue	218.00715470314
+set1	1	imagery	8	3	hearing	imagined_hearing.png	221.007123947144
+set1	1	rest	8	NaN	REST		224.023779630661
+set1	1	listen	9	1	hearing	installed statue installed	234.007080793381
+set1	1	imagery	9	1	hearing	imagined_hearing.png	237.007071018219
+set1	1	listen	9	2	hearing	carbon statue statue	240.007061719894
+set1	1	imagery	9	2	hearing	imagined_hearing.png	243.007051944733
+set1	1	listen	9	3	hearing	carbon carbon carbon	246.007042884827
+set1	1	imagery	9	3	hearing	imagined_hearing.png	249.007032871246
+set1	1	rest	9	NaN	REST		252.007024049759
+set1	1	listen	10	1	hearing	installed carbon carbon	262.006992816925
+set1	1	imagery	10	1	hearing	imagined_hearing.png	265.006983995438
+set1	1	listen	10	2	hearing	installed statue installed	268.006974935532
+set1	1	imagery	10	2	hearing	imagined_hearing.png	271.006965637207
+set1	1	listen	10	3	hearing	installed carbon carbon	274.00695681572
+set1	1	imagery	10	3	hearing	imagined_hearing.png	277.006948709488
+set1	1	rest	10	NaN	REST		280.006939649582
+set1	1	listen	11	1	speaking	statue statue carbon	290.006911039352
+set1	1	imagery	11	1	speaking	imagined_articulation.png	293.006902933121
+set1	1	listen	11	2	speaking	installed installed statue	296.006893873215
+set1	1	imagery	11	2	speaking	imagined_articulation.png	299.00709271431
+set1	1	listen	11	3	speaking	carbon carbon statue	302.007410049438
+set1	1	imagery	11	3	speaking	imagined_articulation.png	305.007724761963
+set1	1	rest	11	NaN	REST		308.00803899765
+set1	1	listen	12	1	hearing	carbon statue installed	318.009073019028
+set1	1	imagery	12	1	hearing	imagined_hearing.png	320.992711782455
+set1	1	listen	12	2	hearing	statue carbon statue	324.009684801102
+set1	1	imagery	12	2	hearing	imagined_hearing.png	326.993319749832
+set1	1	listen	12	3	hearing	carbon statue carbon	330.01029086113
+set1	1	imagery	12	3	hearing	imagined_hearing.png	332.993922710419
+set1	1	rest	12	NaN	REST		336.010890007019
+set1	1	listen	13	1	speaking	installed installed carbon	346.011875629425
+set1	1	imagery	13	1	speaking	imagined_articulation.png	348.995500087738
+set1	1	listen	13	2	speaking	statue statue installed	352.012459039688
+set1	1	imagery	13	2	speaking	imagined_articulation.png	354.996080875397
+set1	1	listen	13	3	speaking	statue installed carbon	358.013036966324
+set1	1	imagery	13	3	speaking	imagined_articulation.png	360.996654987335
+set1	1	rest	13	NaN	REST		364.013607978821
+set1	1	listen	14	1	hearing	installed statue carbon	374.01454782486
+set1	1	imagery	14	1	hearing	imagined_hearing.png	376.998158693314
+set1	1	listen	14	2	hearing	statue installed statue	380.015104055405
+set1	1	imagery	14	2	hearing	imagined_hearing.png	382.998712062836
+set1	1	listen	14	3	hearing	installed installed installed	386.015655040741
+set1	1	imagery	14	3	hearing	imagined_hearing.png	388.99925994873
+set1	1	rest	14	NaN	REST		392.016200065613
